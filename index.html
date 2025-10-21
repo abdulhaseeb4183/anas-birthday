@@ -1,2 +1,124 @@
-<h1>Happy Birthday Anas 🎉</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎉 Happy 12th Birthday, M. Anas!</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fcb69f, #ffecd2);
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    text-align: center;
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: pop 1s ease;
+  }
+  h1 {
+    font-size: 2em;
+    background: linear-gradient(90deg, #ff7ab6, #7c5cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p {
+    font-size: 1.2em;
+    color: #444;
+  }
+  .btn {
+    margin-top: 20px;
+    background: linear-gradient(90deg, #7c5cff, #ff7ab6);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .btn:hover {
+    transform: scale(1.1);
+  }
+  @keyframes pop {
+    from {transform: scale(0.5); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+  }
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
 
+<div class="card">
+  <h1>🎉 Happy 12th Birthday, M. Anas! 🎂</h1>
+  <p>Woohoo! You’re officially 12 — a dozen times more awesome! 🥳<br>
+  May your day be filled with fun, laughter, games, and cake 🎮🍰🎁<br>
+  Keep smiling big and dreaming bigger! 🌟</p>
+  <p><strong>— From your cousin, Abdul Haseeb 💙</strong></p>
+  <button class="btn" onclick="showConfetti()">🎈 Celebrate 🎈</button>
+</div>
+
+<script>
+  // Simple confetti effect
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const confetti = Array.from({length: 150}).map(() => ({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height - canvas.height,
+    r: Math.random()*6 + 2,
+    color: `hsl(${Math.random()*360}, 100%, 70%)`,
+    speed: Math.random()*3 + 1
+  }));
+
+  function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, 2*Math.PI);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    });
+  }
+
+  function updateConfetti() {
+    confetti.forEach(p => {
+      p.y += p.speed;
+      if (p.y > canvas.height) {
+        p.y = -10;
+        p.x = Math.random()*canvas.width;
+      }
+    });
+  }
+
+  function animate() {
+    drawConfetti();
+    updateConfetti();
+    requestAnimationFrame(animate);
+  }
+
+  let confettiActive = false;
+  function showConfetti() {
+    if (!confettiActive) {
+      confettiActive = true;
+      animate();
+    }
+  }
+</script>
+</body>
+</html>
